@@ -34,9 +34,22 @@ get_name_in_email([None, 'abb#ccc'])                      | ['ERROR invaid email
 
 
 #region bailam
+import re
 def get_name_in_email(email_list):
-  print(email_list)
-  return 'todo'
+  email_name = []
+  re1 = re.compile(r"[<>/{}[\]~`#]")
+
+  for email in email_list:
+    if email is None:
+      email_name.append('ERROR invaid email')
+    else:
+      email_split = email.split('@')
+      if re1.search(email_split[0]) or re1.search(email_split[1]):
+        email_name.append('ERROR invaid email')
+      else:
+        email_name.append(email_split[0])
+  return email_name
+
 
 
 if __name__ == '__main__':
